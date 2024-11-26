@@ -5,47 +5,47 @@ entity tb_part1 is
 end tb_part1;
 
 architecture Behavioral of tb_part1 is
-    signal clk    : STD_LOGIC := '0';
-    signal reset  : STD_LOGIC := '0';
-    signal count  : INTEGER range 0 to 9;
+    signal i_clk    : std_logic := '0';
+    signal i_reset  : std_logic := '0';
+    signal o_count  : INTEGER range 0 to 9;
 
-    -- ³s±µ¨ì part1 ¹êÅé
+    -- ï¿½sï¿½ï¿½ï¿½ï¿½ part1 ï¿½ï¿½ï¿½ï¿½
     component part1
         Port (
-            clk    : in STD_LOGIC;
-            reset  : in STD_LOGIC;
-            count  : out INTEGER range 0 to 9
+            i_clk    : in std_logic;
+            i_reset  : in std_logic;
+            o_count  : out INTEGER range 0 to 9
         );
     end component;
 
 begin
     uut: part1 Port Map (
-        clk => clk,
-        reset => reset,
-        count => count
+        i_clk => i_clk,
+        i_reset => i_reset,
+        o_count => o_count
     );
 
-    -- ®É¯ß²£¥Í¾¹
-    clk_process: process
+    -- ï¿½É¯ß²ï¿½ï¿½Í¾ï¿½
+    i_clk_process: process
     begin
-        clk <= '0';
+        i_clk <= '0';
         wait for 10 ns;
-        clk <= '1';
+        i_clk <= '1';
         wait for 10 ns;
     end process;
 
-    -- ¼ÒÀÀ¬yµ{
+    -- ï¿½ï¿½ï¿½ï¿½ï¿½yï¿½{
     stim_proc: process
     begin
-        -- ªì©l¤Æ­«¸m°T¸¹
-        reset <= '1';
+        -- ï¿½ï¿½lï¿½Æ­ï¿½ï¿½mï¿½Tï¿½ï¿½
+        i_reset <= '1';
         wait for 20 ns;
-        reset <= '0';
+        i_reset <= '0';
         
-        -- ¼ÒÀÀ 200 ns
+        -- ï¿½ï¿½ï¿½ï¿½ 200 ns
         wait for 200 ns;
         
-        -- µ²§ô¼ÒÀÀ
+        -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         wait;
     end process;
 end Behavioral;

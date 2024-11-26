@@ -5,39 +5,39 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity part1 is
     Port (
-        clk    : in STD_LOGIC;
-        reset  : in STD_LOGIC;
-        count  : out INTEGER range 0 to 9
+        i_clk    : in std_logic;
+        i_reset  : in std_logic;
+        o_count  : out INTEGER range 0 to 9
     );
 end part1;
 
 architecture Behavioral of part1 is
-    signal current_count : INTEGER range 0 to 9 := 0;
-    signal direction     : STD_LOGIC := '1'; -- '1' means count up, '0' means count down
+    signal current_o_count : INTEGER range 0 to 9 := 0;
+    signal direction     : std_logic := '1'; -- '1' means o_count up, '0' means o_count down
 begin
-    process(clk, reset)
+    process(i_clk, i_reset)
     begin
-        if reset = '1' then
-            current_count <= 0;
+        if i_reset = '1' then
+            current_o_count <= 0;
             direction <= '1';
-        elsif rising_edge(clk) then
-            if direction = '1' then -- Count up
-                if current_count = 9 then
+        elsif rising_edge(i_clk) then
+            if direction = '1' then -- o_count up
+                if current_o_count = 9 then
                     direction <= '0';
-                    current_count <= 8; -- Start counting down from 9
+                    current_o_count <= 8; -- Start o_counting down from 9
                 else
-                    current_count <= current_count + 1;
+                    current_o_count <= current_o_count + 1;
                 end if;
-            else -- Count down
-                if current_count = 0 then
+            else -- o_count down
+                if current_o_count = 0 then
                     direction <= '1';
-                    current_count <= 1; -- Start counting up from 0
+                    current_o_count <= 1; -- Start o_counting up from 0
                 else
-                    current_count <= current_count - 1;
+                    current_o_count <= current_o_count - 1;
                 end if;
             end if;
         end if;
     end process;
 
-    count <= current_count;
+    o_count <= current_o_count;
 end Behavioral;

@@ -4,16 +4,16 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity DualCounter is
     Port (
-        clk         : in  std_logic;              -- ®ÉÄÁ°T¸¹
-        reset       : in  std_logic;              -- ­«¸m°T¸¹
-        count_up1   : in  std_logic;              -- ­p¼Æ¾¹ 1 ¤W¼Æ/¤U¼Æ±±¨î
-        count_up2   : in  std_logic;              -- ­p¼Æ¾¹ 2 ¤W¼Æ/¤U¼Æ±±¨î
-        max1        : in  unsigned(7 downto 0);   -- ­p¼Æ¾¹ 1 ¤W­­
-        min1        : in  unsigned(7 downto 0);   -- ­p¼Æ¾¹ 1 ¤U­­
-        max2        : in  unsigned(7 downto 0);   -- ­p¼Æ¾¹ 2 ¤W­­
-        min2        : in  unsigned(7 downto 0);   -- ­p¼Æ¾¹ 2 ¤U­­
-        counter1    : out unsigned(7 downto 0);   -- ­p¼Æ¾¹ 1 ªº­È
-        counter2    : out unsigned(7 downto 0)    -- ­p¼Æ¾¹ 2 ªº­È
+        i_clk         : in  std_logic;              -- ï¿½ï¿½ï¿½ï¿½ï¿½Tï¿½ï¿½
+        i_reset       : in  std_logic;              -- ï¿½ï¿½ï¿½mï¿½Tï¿½ï¿½
+        i_count_up1   : in  std_logic;              -- ï¿½pï¿½Æ¾ï¿½ 1 ï¿½Wï¿½ï¿½/ï¿½Uï¿½Æ±ï¿½ï¿½ï¿½
+        i_count_up2   : in  std_logic;              -- ï¿½pï¿½Æ¾ï¿½ 2 ï¿½Wï¿½ï¿½/ï¿½Uï¿½Æ±ï¿½ï¿½ï¿½
+        i_max1        : in  unsigned(7 downto 0);   -- ï¿½pï¿½Æ¾ï¿½ 1 ï¿½Wï¿½ï¿½
+        i_min1        : in  unsigned(7 downto 0);   -- ï¿½pï¿½Æ¾ï¿½ 1 ï¿½Uï¿½ï¿½
+        i_max2        : in  unsigned(7 downto 0);   -- ï¿½pï¿½Æ¾ï¿½ 2 ï¿½Wï¿½ï¿½
+        i_min2        : in  unsigned(7 downto 0);   -- ï¿½pï¿½Æ¾ï¿½ 2 ï¿½Uï¿½ï¿½
+        o_counter1    : out unsigned(7 downto 0);   -- ï¿½pï¿½Æ¾ï¿½ 1 ï¿½ï¿½ï¿½ï¿½
+        o_counter2    : out unsigned(7 downto 0)    -- ï¿½pï¿½Æ¾ï¿½ 2 ï¿½ï¿½ï¿½ï¿½
     );
 end DualCounter;
 
@@ -21,44 +21,44 @@ architecture Behavioral of DualCounter is
     signal count1 : unsigned(7 downto 0) := (others => '0');
     signal count2 : unsigned(7 downto 0) := (others => '0');
 begin
-    process(clk, reset)
+    process(i_clk, i_reset)
     begin
-        if reset = '1' then
-            count1 <= min1;
-            count2 <= min2;
-        elsif rising_edge(clk) then
-            -- ­p¼Æ¾¹ 1 ÅŞ¿è
-            if count_up1 = '1' then
-                if count1 < max1 then
+        if i_reset = '1' then
+            count1 <= i_min1;
+            count2 <= i_min2;
+        elsif rising_edge(i_clk) then
+            -- ï¿½pï¿½Æ¾ï¿½ 1 ï¿½Ş¿ï¿½
+            if i_count_up1 = '1' then
+                if count1 < i_max1 then
                     count1 <= count1 + 1;
                 else
-                    count1 <= min1;  -- ¶W¹L¤W­­¦^¨ì¤U­­
+                    count1 <= i_min1;  -- ï¿½Wï¿½Lï¿½Wï¿½ï¿½ï¿½^ï¿½ï¿½Uï¿½ï¿½
                 end if;
             else
-                if count1 > min1 then
+                if count1 > i_min1 then
                     count1 <= count1 - 1;
                 else
-                    count1 <= max1;  -- §C©ó¤U­­¦^¨ì¤W­­
+                    count1 <= i_max1;  -- ï¿½Cï¿½ï¿½Uï¿½ï¿½ï¿½^ï¿½ï¿½Wï¿½ï¿½
                 end if;
             end if;
 
-            -- ­p¼Æ¾¹ 2 ÅŞ¿è
-            if count_up2 = '1' then
-                if count2 < max2 then
+            -- ï¿½pï¿½Æ¾ï¿½ 2 ï¿½Ş¿ï¿½
+            if i_count_up2 = '1' then
+                if count2 < i_max2 then
                     count2 <= count2 + 1;
                 else
-                    count2 <= min2;  -- ¶W¹L¤W­­¦^¨ì¤U­­
+                    count2 <= i_min2;  -- ï¿½Wï¿½Lï¿½Wï¿½ï¿½ï¿½^ï¿½ï¿½Uï¿½ï¿½
                 end if;
             else
-                if count2 > min2 then
+                if count2 > i_min2 then
                     count2 <= count2 - 1;
                 else
-                    count2 <= max2;  -- §C©ó¤U­­¦^¨ì¤W­­
+                    count2 <= i_max2;  -- ï¿½Cï¿½ï¿½Uï¿½ï¿½ï¿½^ï¿½ï¿½Wï¿½ï¿½
                 end if;
             end if;
         end if;
     end process;
 
-    counter1 <= count1;
-    counter2 <= count2;
+    o_counter1 <= count1;
+    o_counter2 <= count2;
 end Behavioral;
