@@ -1,4 +1,0 @@
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/VIVADO_NKUST/SOC/S2/part2/part2.srcs/sources_1/new/counter.vhdl" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'DualCounter'
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/VIVADO_NKUST/SOC/S2/part2/part2.srcs/sim_1/new/counter_tb.vhdl" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'TB_DualCounter'
